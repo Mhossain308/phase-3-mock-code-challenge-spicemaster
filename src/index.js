@@ -11,9 +11,12 @@ function oneSpiceBlend(firstSpice) {
     spiceImg.src = firstSpice.image
     spiceImg.alt = firstSpice.title
     updateForm.dataset.id = firstSpice.id
+    ingredientForm.dataset.id = firstSpice.id
     const ul = document.querySelector('ul')
+    ul.innerHTML = ''
     firstSpice.ingredients.forEach(ingredient => {
         const li = document.createElement('li')
+        li.dataset.id = ingredient.id
         li.textContent = ingredient.name
         ul.append(li)
     })
@@ -66,148 +69,60 @@ ingredientForm.addEventListener('submit', event => {
     const ingredients = event.target['ingredient-name'].value
     const ingredientLi = document.createElement('li')
     ingredientLi.textContent = ingredients
-    const ul = document.querySelector('ul')
+    const ul = document.querySelector('ul.ingredients-list')
     ul.append(ingredientLi)
-
-    fetch('http://localhost:3000/ingredients', {
+   
+    fetch(`http://localhost:3000/ingredients`, {
         method : 'POST',
         headers: { 
             
             "Content-Type": "application/json",
             'Accept': 'application/json'
         },
-        body: JSON.stringify({ingredients,
-            spiceBlendId: parseInt(event.target.dataset.id)
+        body: JSON.stringify({name: ingredients,
+            spiceblendId: parseInt(event.target.dataset.id) 
         })
         })
-        
-})
+        .then(response => response.json())
+        .then(ingredientsObj => (ingredientsObj))
+            // console.log(ingredientsObj)))
+    
 
-// Add a new ingredient to the spice blend when the #ingredient-form is submitted. 
-// The new ingredient should be displayed on the page (no persistence needed for now).
+            // See all spice blend images in the #spice-images div when the page loads. Request the data from the server to get all the spice blends. 
+            // Then, display the image for each of the spice blends using an img tag inside the #spice-images div.
+    
+
+})
 firstSpiceInfo()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ***************************** old code *************************** 
-// // write your code here
-// const url = 'http://localhost:3000/spiceblends' 
-// const newIngredientForm = document.querySelector('form#ingredient-form')
-// const updateForm = document.querySelector('form#update-form')
-
-// fetch (`${url}/1`)
-//     .then(response => response.json())
-//     .then(spiceBlendArray => {
-        
-//         const detailH2 = document.querySelector('h2.title')
-//         detailH2.textContent = spiceBlendArray.title
+function spiceImages(imagesObj){
+    const images = document.querySelector('div#spice-images')
+    const img = document.createElement('img')
+    img.src = imagesObj.image
+    img.alt = imagesObj.title
+    img.dataset.id = imagesObj.id
     
-//     const detailImg = document.querySelector('img.detail-image')
-//     detailImg.src = spiceBlendArray.image
-//     detailImg.alt = spiceBlendArray.title
+    images.append(img)
+} 
+fetch('http://localhost:3000/spiceblends')
+.then(response => response.json())
+.then(allImages => {
+    allImages.forEach(image => {
+        spiceImages(image)
+    })
+})
 
-//     const ingredientsUl = document.querySelector('ul.ingredients-list')
+const images = document.querySelector('div#spice-images')
 
-//     spiceBlendArray.ingredients.forEach(ingredientObj => {
-//         const li = document.createElement('li')
-//         li.textContent = ingredientObj.name
-        
-//         ingredientsUl.append(li)
-
-//     }) 
+images.addEventListener('click', event => {
+    if(event.target.matches('img')) {
+        fetch(`http://localhost:3000/spiceblends/${event.target.dataset.id}`)
+        .then(response => response.json())
+        .then(oneImageObj => {
+        oneSpiceBlend(oneImageObj)
+        })
+    }
     
-//     })
-
-//      updateForm.addEventListener('submit', event => {
-//      event.preventDefault()
-     
-//      const titleInput = event.target.title.value
-
-//      fetch(`${url}/1`, {
-//      method: 'PATCH',
-//      headers: { 
-//     'Content-Type': 'application/json'
-// },
-
-//     body: JSON.stringify({ title: titleInput })
-
-// })
-//     .then(response => response.json())
-//     .then(updatedSpiceBlendObj => {
-//     const detailH2 = document.querySelector('h2.title')
-//     detailH2.textContent = updatedSpiceBlendObj.title
-//     })
-
-    
-// })
-
-
-// newIngredientForm.addEventListener('submit', event => {
-//     event.preventDefault()
-    
-//     const newIngredientInput = event.target["ingredient-name"].value
-//     const li = document.createElement('li')
-//     li.textContent = newIngredientInput
-
-//     const ingredientsUl = document.querySelector('ul.ingredients-list')
-//     ingredientsUl.append(li)
-    
-//     event.target.reset()
-
-   
-// })
+})
+// Click on an image from the #spice-images div and see all the info about that spice blend displayed inside the #spice-blend-detail div. 
+// You will need to make another GET request with the spice blend's ID to get the information about the spice blend that was clicked.

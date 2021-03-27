@@ -17,7 +17,7 @@
     },
     {
       "id": 4,
-      "title": "Five Spice",
+      "title": "six spice",
       "image": "./assets/spices/fivespice.jpg"
     }
   ],
@@ -111,6 +111,76 @@
       "ingredients": "Mocha",
       "spiceBlendId": null,
       "id": 18
+    },
+    {
+      "ingredients": "Mocha",
+      "spiceBlendId": null,
+      "id": 19
+    },
+    {
+      "ingredients": "jewroiwjr",
+      "spiceBlendId": null,
+      "id": 20
+    },
+    {
+      "ingredients": "iojoij",
+      "spiceBlendId": null,
+      "id": 21
+    },
+    {
+      "name": "jkhkjhk",
+      "spiceBlendId": null,
+      "id": 22
+    },
+    {
+      "name": "weljejr",
+      "spiceblendId": null,
+      "id": 23
+    },
+    {
+      "name": "lkadklsf",
+      "spiceblendId": 1,
+      "id": 24
+    },
+    {
+      "name": "Mocha",
+      "spiceblendId": 1,
+      "id": 25
+    },
+    {
+      "name": "caramel",
+      "spiceblendId": 1,
+      "id": 26
+    },
+    {
+      "name": "caramel",
+      "spiceblendId": 1,
+      "id": 27
+    },
+    {
+      "name": "sugar",
+      "spiceblendId": 1,
+      "id": 28
+    },
+    {
+      "name": "peppermint",
+      "spiceblendId": 1,
+      "id": 29
+    },
+    {
+      "name": "wqewqew",
+      "spiceblendId": 1,
+      "id": 30
+    },
+    {
+      "name": "ewwqqwe",
+      "spiceblendId": 1,
+      "id": 31
+    },
+    {
+      "name": "tumeric",
+      "spiceblendId": 4,
+      "id": 32
     }
   ]
 }
